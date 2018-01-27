@@ -11,6 +11,7 @@ public class StreamsOperators {
 
 
     public static void main(String[] args){
+
         initialization();
 
         System.out.println("------------------------------------example 01--------------------------------------------");
@@ -23,22 +24,15 @@ public class StreamsOperators {
         getFirstNamesOnly();
         System.out.println();
 
-
         System.out.println("------------------------------------example 03--------------------------------------------");
         // Operators: sorted, peek
         sortEmployeesByAge();
         System.out.println();
 
-
         System.out.println("------------------------------------example 04--------------------------------------------");
         // Operators: findFirst
         getTheFirstEmployee();
         System.out.println();
-
-
-
-
-
 
     }
 
@@ -47,7 +41,6 @@ public class StreamsOperators {
                 .peek(System.out::println)
                 .collect(Collectors.toList());
      }
-
 
      public static List<String> getFirstNamesOnly(){
         return employees.stream().map(e -> e.getFirstName())

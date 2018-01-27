@@ -7,15 +7,15 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class LambdaExpressionExamples {
+public class SortThenPrintLambdaExpression {
 
     private static List<Employee> employees;
 
     public static void main(String[] args) {
         initialization();
-        TraditionalPrint();
-        CompareThenPrintInJava7();
-        CompareThenPrintInJava8();
+        traditionalPrint();
+        sortThenPrintInJava7();
+        sortThenPrintInJava8();
     }
 
     private static void initialization(){
@@ -28,7 +28,7 @@ public class LambdaExpressionExamples {
         );
     }
 
-    private static void TraditionalPrint(){
+    private static void traditionalPrint(){
         System.out.println("--------------- # traditional for loop -initial order- # ----------------------------------");
         System.out.println("-------------------------------------------------------------------------------------------");
 
@@ -38,7 +38,7 @@ public class LambdaExpressionExamples {
         System.out.println();
     }
 
-    private static void CompareThenPrintInJava7(){
+    private static void sortThenPrintInJava7(){
 
         System.out.println("--------------- # Java 7 -order by first name- # ------------------------------------------");
         System.out.println("-------------------------------------------------------------------------------------------");
@@ -59,7 +59,7 @@ public class LambdaExpressionExamples {
         System.out.println();
     }
 
-    private static void CompareThenPrintInJava8(){
+    private static void sortThenPrintInJava8(){
         System.out.println("--------------- # Java 8 -order by age- # -------------------------------------------------");
         System.out.println("-------------------------------------------------------------------------------------------");
 
