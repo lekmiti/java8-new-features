@@ -4,19 +4,20 @@ import com.lekmiti.java8.models.Employee;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 
 public class Streams {
 
-    private  List<Employee> employees;
+    private List<Employee> employees;
 
     @Test
     public void filterByAgeGreaterthan() {
@@ -105,8 +106,6 @@ public class Streams {
     public void ArithmeticSequence() {
         List<Integer> sequence = Stream.iterate(0, n -> n + 2).limit(10).collect(Collectors.toList());
         List<Integer> expected = Arrays.asList(0, 2, 4, 6, 8, 10, 12, 14, 16, 18);
-        System.out.println(sequence.toString());
-        System.out.println(expected.toString());
         assertTrue(sequence.toString().equals(expected.toString()));
     }
 
@@ -115,9 +114,9 @@ public class Streams {
         IntStream.range(1, 11).forEach(System.out::println);
         IntStream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
-     }
+    }
 
-     @Test
+    @Test
     public void streamOfLong() {
         LongStream.rangeClosed(1, 6).forEach(System.out::println);
     }
@@ -128,7 +127,7 @@ public class Streams {
     }
 
     @Test
-    public  void initUsingStreamOf() {
+    public void initUsingStreamOf() {
         List<String> employees = Stream.of(
                 new Employee("Mohammed", "Lekmiti", 26, "Adress01", "Software Developer"),
                 new Employee("Wafa", "Lekmiti", 22, "Adress02", "Translator"),
@@ -214,10 +213,10 @@ public class Streams {
 
         long emplyeesNbr = employees.stream().count();
         assertTrue(olderAge == 30);
-        assertTrue(youngerAge ==  22);
+        assertTrue(youngerAge == 22);
         assertTrue(totalAge == 129);
         assertTrue(totalAgeUsingReduce == 129);
-        assertTrue(emplyeesNbr == 5 );
+        assertTrue(emplyeesNbr == 5);
     }
 
     @Test
@@ -263,5 +262,44 @@ public class Streams {
 
     }
 
+    @Test
+    public void performanceOfStreams() {
 
+        // given
+        List<Employee> employeesList = new ArrayList<Employee>();
+        Random random = new Random();
+
+        for (int i = 0; i < 10000; i++) {
+            employeesList.add(new Employee(null, null, random.nextInt(60 - 22) + 22, null, null));
+
+        }
+        List<Employee> employeesCopy1 = employeesList.stream().collect(Collectors.toList());
+        List<Employee> employeesCopy2 = employeesList.stream().collect(Collectors.toList());
+
+
+        // when
+
+        LocalTime deltaTime1 = LocalTime.now();
+
+        Collections.sort(employeesCopy1, (e1, e2) -> e1.getOld() - e2.getOld());
+        List<Employee> filteredCompy1 = new ArrayList<Employee>();
+        for(Employee employee:employeesCopy1)
+            if(employee.getOld()>30)
+                filteredCompy1.add(employee);
+
+        LocalTime deltaTime2 = LocalTime.now();
+
+       employeesCopy2.stream().filter(e ->e.getOld() > 30).sorted((e1, e2) -> e1.getOld() - e2.getOld());
+        LocalTime deltaTime3 = LocalTime.now();
+
+
+        // Then
+        Long sortingTimeWithoutStreams = ChronoUnit.MILLIS.between(deltaTime1, deltaTime2);
+        Long sortingTimeUsingStreams = ChronoUnit.MILLIS.between(deltaTime2, deltaTime3);
+
+        System.out.println("sorting then filtring widthout streams: "+sortingTimeWithoutStreams +" ms");
+        System.out.println("sorting then filtring using streams: "+sortingTimeUsingStreams+" ms");
+        assertTrue(String.format("sorting using streams is %d time more efficient that without streams",  (int)(sortingTimeWithoutStreams / sortingTimeUsingStreams)), sortingTimeUsingStreams <= sortingTimeWithoutStreams);
+
+    }
 }
