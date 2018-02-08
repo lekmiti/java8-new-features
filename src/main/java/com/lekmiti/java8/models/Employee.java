@@ -1,6 +1,8 @@
 package com.lekmiti.java8.models;
 
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class Employee  {
 
@@ -9,6 +11,7 @@ public class Employee  {
     public int old;
     private String address;
     private String job;
+    private List<String> sports = new ArrayList<String>();
 
     public Employee(String firstName, String lastName, int old, String address, String job) {
         this.firstName = firstName;
@@ -16,6 +19,13 @@ public class Employee  {
         this.old = old;
         this.address = address;
         this.job = job;
+    }
+
+    public void addSport(String sport){
+        this.sports.add(sport);
+    }
+    public void addSport(Collection<String> sports){
+        this.sports.addAll(sports);
     }
 
     public String getFirstName() {
@@ -38,6 +48,10 @@ public class Employee  {
         return job;
     }
 
+    public List<String> getSports() {
+        return sports;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,7 +63,8 @@ public class Employee  {
         if (firstName != null ? ! firstName.equals(employee.firstName) : employee.firstName != null) return false;
         if (lastName != null ? ! lastName.equals(employee.lastName) : employee.lastName != null) return false;
         if (address != null ? ! address.equals(employee.address) : employee.address != null) return false;
-        return job != null ? job.equals(employee.job) : employee.job == null;
+        if (job != null ? ! job.equals(employee.job) : employee.job != null) return false;
+        return sports != null ? sports.equals(employee.sports) : employee.sports == null;
     }
 
     @Override
@@ -59,6 +74,7 @@ public class Employee  {
         result = 31 * result + old;
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (job != null ? job.hashCode() : 0);
+        result = 31 * result + (sports != null ? sports.hashCode() : 0);
         return result;
     }
 
@@ -70,6 +86,7 @@ public class Employee  {
                 ", old=" + old +
                 ", address='" + address + '\'' +
                 ", job='" + job + '\'' +
+                ", sports=" + sports +
                 '}';
     }
 }
