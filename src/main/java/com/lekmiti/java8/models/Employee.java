@@ -13,6 +13,10 @@ public class Employee  {
     private String job;
     private List<String> sports = new ArrayList<String>();
 
+    public Employee(){
+
+    }
+
     public Employee(String firstName, String lastName, int old, String address, String job) {
         this.firstName = firstName;
         this.lastName = lastName;
