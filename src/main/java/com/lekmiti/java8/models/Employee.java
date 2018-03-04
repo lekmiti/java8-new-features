@@ -93,4 +93,33 @@ public class Employee  {
                 ", sports=" + sports +
                 '}';
     }
+
+
+    public void incrementAge(){
+        this.old = old + 1;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setOld(int old) {
+        this.old = old;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public void setSports(List<String> sports) {
+        this.sports = sports;
+    }
 }
